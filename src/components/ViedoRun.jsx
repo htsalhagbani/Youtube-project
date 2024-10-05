@@ -16,7 +16,7 @@ function VideoRun() {
     
 
     useEffect(() => {
-        const apiKey = 'AIzaSyByyUlw6DW5CwYgpBLFEUeHcjqoBDRIpjU';
+        const apiKey = 'AIzaSyCEnjGFjEygsvNK_0jTl3RW30OazntGeoY';
 
         const fetchVideoDetails = async () => {
             const videoUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${apiKey}`;
@@ -39,7 +39,7 @@ function VideoRun() {
         const fetchRelatedVideos = async () => {
             if (!categoryId) return;
     
-            const apiKey = 'AIzaSyByyUlw6DW5CwYgpBLFEUeHcjqoBDRIpjU';
+            const apiKey = 'AIzaSyCEnjGFjEygsvNK_0jTl3RW30OazntGeoY';
             let allRelatedVideos = [];
             let nextPageToken = null;
     
