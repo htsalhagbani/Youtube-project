@@ -77,7 +77,7 @@ function Login() {
   };
 
   return (
-<section className="bg-lightblue w-full  min-h-screen md:min-h-[90vh] flex items-center justify-center">
+<section className="bg-lightblue w-full  min-h-screen md:min-h-[90vh] flex items-center justify-center max-sm:mt-5">
   <div className="bg-lightpink w-full h-full flex items-center justify-center">
     <div className="w-[90%] max-w-xl h-[100vh] max-sm:mb-9 xl:h-[70vh] flex justify-center items-center bg-white rounded-3xl shadow-lg dark:border md:mt-0 xl:p-0 dark:bg-gray-800 dark:border-gray-700">
       <div className="w-[90%]">

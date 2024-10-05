@@ -16,7 +16,7 @@ function VideoRun() {
     
 
     useEffect(() => {
-        const apiKey = 'AIzaSyCnVaZ9Zf7osMx1xyaJWLZineLCBMP30CA';
+        const apiKey = 'AIzaSyCKpkytg6ARhaK5EEC6pdUlwcfklLXvoFw';
 
         const fetchVideoDetails = async () => {
             const videoUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${apiKey}`;
@@ -39,7 +39,7 @@ function VideoRun() {
         const fetchRelatedVideos = async () => {
             if (!categoryId) return;
     
-            const apiKey = 'AIzaSyCnVaZ9Zf7osMx1xyaJWLZineLCBMP30CA';
+            const apiKey = 'AIzaSyCKpkytg6ARhaK5EEC6pdUlwcfklLXvoFw';
             let allRelatedVideos = [];
             let nextPageToken = null;
     
@@ -133,51 +133,28 @@ function VideoRun() {
         <div className='flex items-center justify-center max-sm:mt-5'>
             <div className="flex md:w-[90%] gap-4  md:p-4 max-sm:flex-col-reverse max-sm:w-full">
                 {/* Related Videos List */}
-                <div className="w-[40%] max-sm:w-full overflow-y-auto rounded-lg">
-                    {/* Channel Info Section */}
-                    <div className="bg-cover bg-center mb-3 p-4 flex items-center justify-center" >
-                        <div className="bg-black bg-opacity-70 p-8 rounded-lg text-white text-center shadow-lg">
-                            <img src={adv} alt="Channel Logo" className="w-32 mx-auto mb-4 rounded-full" />
-                            <h1 className="text-3xl font-bold mb-2">Healthy Lifestyle</h1>
-                            <p className="text-lg mb-4">Join us for thrilling travel vlogs, mouth-watering recipes, and lifestyle tips!</p>
-                            <div className="bg-red-600 text-white py-2 px-4 rounded-full font-bold hover:bg-red-500 transition duration-300">
-                                Subscribe Now!
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Related Videos Display */}
-                    <div className="space-y-2 overflow-y-auto h-screen">
-                        {relatedVideos.map((video) => (
-                            <div key={video.id.videoId} className="group cursor-pointer" onClick={() => handleVideoSelect(video.id.videoId)}>
-                                <div className="flex items-start rounded-md shadow-lg p-2 bg-lightpink transition-transform duration-300 transform group-hover:scale-105">
-                                    {/* Image Section */}
-                                    <img 
-                                        className="rounded-lg aspect-video w-32 h-20 object-cover" 
-                                        src={video.snippet.thumbnails.default.url} 
-                                        alt={video.snippet.title} 
-                                    />
-                                    {/* Text Section */}
-                                    <div className="ml-3 flex flex-col justify-between">
-                                        <h3 className="text-lg font-semibold text-gray-800">{video.snippet.title}</h3>
-                                        <p className="text-sm text-gray-500">
-                                            {new Date(video.snippet.publishedAt).toLocaleDateString()}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* Mobile Video Description and Comments responsive */}
-                    <div className="w-full p-4  bg-white rounded-lg shadow mt-4 md:hidden">
-                        <h2 className="text-xl font-semibold mb-2">Video Description</h2>
-                        <p className="text-gray-700 mb-4">
-                            {videoDetails.description || "This is a description of the video. It can contain information about the content, the creator, and any other relevant details."}
-                        </p>
-                        {/* Comments Section */}
+                <div className="w-[40%] max-sm:w-full overflow-y-auto bg-[red] rounded-lg">
+                {/* Mobile Video Description and Comments responsive */}
+                    <div className="w-full p-4  bg-white rounded-lg shadow  md:hidden">
+                    <h2 className="text-xl font-semibold mb-2">{videoDetails.title}</h2>
+        <p className="text-gray-700 mb-4">
+            {videoDetails.description && videoDetails.description.length > 0 ? (
+                isExpanded
+                    ? convertLinksToAnchors(videoDetails.description)
+                    : convertLinksToAnchors(truncateDescription(videoDetails.description, 200))
+            ) : (
+                <span>No description of this video.</span>
+            )}
+            {videoDetails.description && videoDetails.description.length > 200 && (
+                <button onClick={toggleDescription} className="text-blue-500 ml-2 underline">
+                    {isExpanded ? "Show Less" : "Read More"}
+                </button>
+            )}
+        </p>
+                        {/* Comments Section gray */}
+                        <div className='bg-[gray] max-sm:hidden'>
                         <h3 className="text-lg font-semibold mb-2">Comments</h3>
-                        <div className="space-y-2 mb-4">
+                        <div className="space-y-2 mb-4 overflow-y-auto">
                             {comments.length > 0 ? comments.map((comment) => (
                                 <div key={comment.id} className="bg-gray-100 rounded-md p-2">
                                     <strong>{comment.name}:</strong> {comment.text}
@@ -199,7 +176,71 @@ function VideoRun() {
                                 Submit
                             </button>
                         </div>
+                        </div>
                     </div>
+                    {/* Channel Info Section */}
+                    <div className="bg-cover bg-center bg-[blue] mb-3 p-4 flex items-center justify-center" >
+                        <div className="bg-black bg-opacity-70 p-8 rounded-lg text-white text-center shadow-lg">
+                            <img src={adv} alt="Channel Logo" className="w-32 mx-auto mb-4 rounded-full" />
+                            <h1 className="text-3xl font-bold mb-2">Healthy Lifestyle</h1>
+                            <p className="text-lg mb-4">Join us for thrilling travel vlogs, mouth-watering recipes, and lifestyle tips!</p>
+                            <div className="bg-red-600 text-white py-2 px-4 rounded-full font-bold hover:bg-red-500 transition duration-300">
+                                Subscribe Now!
+                            </div>
+                        </div>
+                    </div>
+
+
+                    {/* Related Videos Display */}
+                    <div className="space-y-2 overflow-y-auto h-screen max-sm:h-[70vh]">
+                        {relatedVideos.map((video) => (
+                            <div key={video.id.videoId} className="group cursor-pointer" onClick={() => handleVideoSelect(video.id.videoId)}>
+                                <div className="flex items-start rounded-md shadow-lg p-2 bg-lightpink transition-transform duration-300 transform group-hover:scale-105">
+                                    {/* Image Section */}
+                                    <img 
+                                        className="rounded-lg aspect-video w-32 h-20 object-cover" 
+                                        src={video.snippet.thumbnails.default.url} 
+                                        alt={video.snippet.title} 
+                                    />
+                                    {/* Text Section */}
+                                    <div className="ml-3 flex flex-col justify-between">
+                                        <h3 className="text-lg font-semibold text-gray-800">{video.snippet.title}</h3>
+                                        <p className="text-sm text-gray-500">
+                                            {new Date(video.snippet.publishedAt).toLocaleDateString()}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                {/* Comments Section gray */}
+                        <div className='bg-[orange] md:hidden '>
+                        <h3 className="text-lg font-semibold mb-2">Comments</h3>
+                        <div className="space-y-2 mb-4 overflow-y-auto  h-[40vh]">
+                            {comments.length > 0 ? comments.map((comment) => (
+                                <div key={comment.id} className="bg-gray-100 rounded-md p-2">
+                                    <strong>{comment.name}:</strong> {comment.text}
+                                </div>
+                            )) : (
+                                <p>No comments yet.</p>
+                            )}
+                        </div>
+                        {/* Add Comment Input */}
+                        <div className="flex flex-col">
+                            <input
+                                type="text"
+                                value={newComment}
+                                onChange={(e) => setNewComment(e.target.value)}
+                                placeholder="Add a comment..."
+                                className="border rounded-md p-2 flex-grow"
+                            />
+                            <button onClick={handleCommentSubmit} className="bg-blue-500 text-white rounded-md px-4 mt-2">
+                                Submit
+                            </button>
+                        </div>
+                        </div>
+                 
                 </div>
 
                 {/* Main Video Player */}

@@ -29,7 +29,7 @@ function SignUp() {
   };
 
   return (
-    <section className="w-full min-h-screen md:min-h-[90vh] flex items-center justify-center">
+    <section className="w-full min-h-screen max-sm:mt-5 md:min-h-[90vh] flex items-center justify-center">
       <div className="w-full h-full flex items-center justify-center">
         <div className="w-[90%] max-w-xl xl:h-[70vh] h-[90vh] flex justify-center items-center bg-white rounded-3xl shadow-lg dark:border md:mt-0 xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="w-[90%]">

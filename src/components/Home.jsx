@@ -8,7 +8,7 @@ const Home = () => {
     const { categoryId } = useParams(); 
     const [videos, setVideos] = useState([]);
     const { searchQuery } = useOutletContext();
-    const apiKey = 'AIzaSyCnVaZ9Zf7osMx1xyaJWLZineLCBMP30CA';
+    const apiKey = 'AIzaSyCKpkytg6ARhaK5EEC6pdUlwcfklLXvoFw';
     const navigate = useNavigate();
 
     const handleVideoClick = (videoId) => {
