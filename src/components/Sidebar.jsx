@@ -5,7 +5,7 @@ import { FiMenu as Menu } from 'react-icons/fi';
 import { AiOutlineLogout } from 'react-icons/ai';
 import axios from 'axios';
 
-const apiKey = 'AIzaSyCKpkytg6ARhaK5EEC6pdUlwcfklLXvoFw';
+const apiKey = 'AIzaSyByyUlw6DW5CwYgpBLFEUeHcjqoBDRIpjU';
 
 const fetchCategories = async () => {
     const url = `https://www.googleapis.com/youtube/v3/videoCategories?part=snippet&regionCode=US&key=${apiKey}`;
