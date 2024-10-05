@@ -216,7 +216,7 @@ function VideoRun() {
 
                 {/* Comments Section gray */} <div className=' md:hidden '>
                         <h3 className="text-lg font-semibold mb-2">Comments</h3>
-                        <div className="space-y-2 mb-4 overflow-y-auto  h-[40vh]">
+                        <div className="space-y-2 mb-4 overflow-y-auto ">
                             {comments.length > 0 ? comments.map((comment) => (
                                 <div key={comment.id} className="bg-gray-100 rounded-md p-2">
                                     <strong>{comment.name}:</strong> {comment.text}
