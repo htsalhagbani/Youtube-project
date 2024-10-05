@@ -6,8 +6,8 @@ import App from "../App";
 import ErrorPage from "./error";
 import Home from "../components/Home";
 import ViedoRun from "../components/ViedoRun";
-import Login from "../components/login";
-import Signup from "../components/signup";
+import Login from "../components/Login";
+import Signup from "../components/Signup";
 
 const router = createBrowserRouter([
     {
